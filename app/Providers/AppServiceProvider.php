@@ -26,8 +26,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
-
-        Gate::define('is-admin', fn (User $user) => $user->is_admin);
     }
 
     /**
