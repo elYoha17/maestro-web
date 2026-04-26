@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Actions\GenerateAgentMatricula;
 use App\Models\Agent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,14 @@ class AgentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'other_name' => $this->faker->optional()->lastName(),
+            'matricula' => app(GenerateAgentMatricula::class)(),
+            'sex' => $this->faker->numberBetween(1, 2),
+            'birth_date' => $this->faker->optional()->date(),
+            'phone_number' => $this->faker->optional()->phoneNumber(),
+            'address' => $this->faker->optional()->address(),
         ];
     }
 }
