@@ -1,16 +1,13 @@
 <?php
 
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
 
-Route::inertia('/', 'welcome', [
-    'canRegister' => Features::enabled(Features::registration()),
-])->name('home');
+Route::get('/', HomeController::class)->name('home');
+Route::redirect('/dashboard', '/')->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
-
     Route::post('/agents/{user}', [AgentController::class, 'store'])->name('agents.store');
     Route::put('/agents/{agent}', [AgentController::class, 'update'])->name('agents.update');
 });

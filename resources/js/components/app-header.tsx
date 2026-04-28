@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
+import { CircleHelp, Mail, Menu, Search } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import AppLogoIcon from '@/components/app-logo-icon';
 import { Breadcrumbs } from '@/components/breadcrumbs';
@@ -32,36 +32,34 @@ import { UserMenuContent } from '@/components/user-menu-content';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useInitials } from '@/hooks/use-initials';
 import { cn, toUrl } from '@/lib/utils';
-import { dashboard } from '@/routes';
+import { home } from '@/routes';
 import type { BreadcrumbItem, NavItem } from '@/types';
 
 type Props = {
     breadcrumbs?: BreadcrumbItem[];
 };
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Tableau de bord',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
-];
+const mainNavItems: NavItem[] = [];
 
 const rightNavItems: NavItem[] = [
     {
-        title: 'Depot',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
+        title: 'A propos',
+        href: '#',
+        icon: CircleHelp,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
+        title: 'Contacts',
+        href: '#',
+        icon: Mail,
     },
 ];
 
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
+
+function isExternalLink(href: string): boolean {
+    return href.startsWith('http://') || href.startsWith('https://');
+}
 
 export function AppHeader({ breadcrumbs = [] }: Props) {
     const page = usePage();
@@ -117,8 +115,20 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                                 <a
                                                     key={item.title}
                                                     href={toUrl(item.href)}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
+                                                    target={
+                                                        isExternalLink(
+                                                            toUrl(item.href),
+                                                        )
+                                                            ? '_blank'
+                                                            : undefined
+                                                    }
+                                                    rel={
+                                                        isExternalLink(
+                                                            toUrl(item.href),
+                                                        )
+                                                            ? 'noopener noreferrer'
+                                                            : undefined
+                                                    }
                                                     className="flex items-center space-x-2 font-medium"
                                                 >
                                                     {item.icon && (
@@ -135,7 +145,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                     </div>
 
                     <Link
-                        href={dashboard()}
+                        href={home()}
                         prefetch
                         className="flex items-center space-x-2"
                     >
@@ -191,8 +201,20 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                         <TooltipTrigger>
                                             <a
                                                 href={toUrl(item.href)}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
+                                                target={
+                                                    isExternalLink(
+                                                        toUrl(item.href),
+                                                    )
+                                                        ? '_blank'
+                                                        : undefined
+                                                }
+                                                rel={
+                                                    isExternalLink(
+                                                        toUrl(item.href),
+                                                    )
+                                                        ? 'noopener noreferrer'
+                                                        : undefined
+                                                }
                                                 className="group inline-flex h-9 w-9 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium text-accent-foreground ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
                                             >
                                                 <span className="sr-only">

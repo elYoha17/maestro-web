@@ -9,6 +9,10 @@ import {
 import { toUrl } from '@/lib/utils';
 import type { NavItem } from '@/types';
 
+function isExternalLink(href: string): boolean {
+    return href.startsWith('http://') || href.startsWith('https://');
+}
+
 export function NavFooter({
     items,
     className,
@@ -31,8 +35,16 @@ export function NavFooter({
                             >
                                 <a
                                     href={toUrl(item.href)}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                    target={
+                                        isExternalLink(toUrl(item.href))
+                                            ? '_blank'
+                                            : undefined
+                                    }
+                                    rel={
+                                        isExternalLink(toUrl(item.href))
+                                            ? 'noopener noreferrer'
+                                            : undefined
+                                    }
                                 >
                                     {item.icon && (
                                         <item.icon className="h-5 w-5" />
