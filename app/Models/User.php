@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\Role as EnumsRole;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -43,5 +45,20 @@ class User extends Authenticatable
     public function agent(): HasOne
     {
         return $this->hasOne(Agent::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->roles->contains('name', EnumsRole::ADMIN->value);
+    }
+
+    public function isManager(): bool
+    {
+        return $this->roles->contains('name', EnumsRole::MANAGER->value);
+    }
+
+    public function isActiveAgent(): bool
+    {
+        return $this->agent?->is_active;
     }
 }

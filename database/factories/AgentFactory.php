@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Actions\GenerateAgentMatricula;
+use App\Actions\Agent\GenerateMatricula;
 use App\Models\Agent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,7 +22,7 @@ class AgentFactory extends Factory
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'other_name' => $this->faker->optional()->lastName(),
-            'matricula' => app(GenerateAgentMatricula::class)(),
+            'matricula' => app(GenerateMatricula::class)(),
             'sex' => $this->faker->numberBetween(1, 2),
             'birth_date' => $this->faker->optional()->date(),
             'phone_number' => $this->faker->optional()->phoneNumber(),
