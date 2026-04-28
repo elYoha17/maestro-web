@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             ]);
 
         User::factory()
-            ->has(Agent::factory())
+            ->has(Agent::factory()->active())
             ->hasAttached(Role::where('name', EnumsRole::MANAGER)->first())
             ->create([
                 'name' => 'Manager User',

@@ -27,6 +27,14 @@ class AgentFactory extends Factory
             'birth_date' => $this->faker->optional()->date(),
             'phone_number' => $this->faker->optional()->phoneNumber(),
             'address' => $this->faker->optional()->address(),
+            'is_active' => $this->faker->randomElement([true, false]),
         ];
+    }
+
+    public function active(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_active' => true,
+        ]);
     }
 }

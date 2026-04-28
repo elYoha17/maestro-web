@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('birth_date')->nullable();
             $table->string('phone_number')->nullable()->index();
             $table->string('address')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
 
             $table->index(['first_name', 'last_name', 'other_name']);
